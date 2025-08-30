@@ -5,6 +5,7 @@ Simple test script to verify IB Gateway API connection
 
 import socket
 import time
+from ib_insync import IB
 
 def test_api_connection(host='127.0.0.1', port=4002):  # 4002 is paper trading port
     """Test if IB Gateway API is accepting connections"""
@@ -26,47 +27,20 @@ def test_api_connection(host='127.0.0.1', port=4002):  # 4002 is paper trading p
 
 def test_with_ibapi():
     """Test using IB API library if available"""
+    ib = IB()
+    print(f"Connecting to IB Gateway on 127.0.0.1:4002 …")
     try:
-        from ibapi.client import EClient
-        from ibapi.wrapper import EWrapper
-        import threading
-        
-        class TestApp(EWrapper, EClient):
-            def __init__(self):
-                EClient.__init__(self, self)
-                self.connected = False
-                
-            def error(self, reqId, errorCode, errorString, advancedOrderRejectJson=""):
-                print(f"Error {reqId} {errorCode}: {errorString}")
-                
-            def connectAck(self):
-                print("✅ IB API connection established!")
-                self.connected = True
-                
-            def connectionClosed(self):
-                print("Connection closed")
-        
-        app = TestApp()
-        app.connect("127.0.0.1", 4002, clientId=1)  # Paper trading port
-        
-        # Run for 5 seconds
-        api_thread = threading.Thread(target=app.run, daemon=True)
-        api_thread.start()
-        time.sleep(5)
-        
-        if app.connected:
-            app.disconnect()
-            return True
-        else:
-            print("❌ Failed to establish IB API connection")
-            return False
-            
-    except ImportError:
-        print("📦 ibapi not installed. Install with: pip install ibapi")
-        return None
+        ib.connect("127.0.0.1", 4002, clientId=999, timeout=30, readonly=True)
+        print("Connected successfully!")
     except Exception as e:
-        print(f"❌ Error with IB API test: {e}")
-        return False
+        print(f"Connection failed: {e}")
+        print("❌ Failed to establish IB API connection")
+        print("Make sure:")
+        print("1. IBKR Gateway is running")
+        print("2. API is enabled in Gateway configuration") 
+        print("3. Client ID is not already in use")
+        print("4. Port 4002 matches Gateway API settings")
+        raise SystemExit(1)                    
 
 if __name__ == "__main__":
     print("🔍 Testing IB Gateway connection...")

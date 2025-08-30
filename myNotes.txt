@@ -1,5 +1,5 @@
 docker compose up &
-vnc://127.0.0.1:5900 from Finder on Mac + myVncPassword as myVncPassword
+vnc://127.0.0.1:5900 from Finder on Mac (with CMD+K) + myVncPassword as myVncPassword
 from bot, run test_minimal_connection and-or from bot/RSART-official-bot/add_data.py
 
 they should both work and you should see 4 lines in VNC after running the script, adding lines for clients IDs

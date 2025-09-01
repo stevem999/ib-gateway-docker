@@ -1,5 +1,7 @@
 docker compose up &
-vnc://127.0.0.1:5900 from Finder on Mac (with CMD+K) + myVncPassword as myVncPassword
-from bot, run test_minimal_connection and-or from bot/RSART-official-bot/add_data.py
+vnc://127.0.0.1:5900 from Finder on Mac (with CMD+K) + "myVncPassword" as myVncPassword
+from bot repo, Arthur-RSI-testing branch (not this repo!), run "test_minimal_connection.py" and-or "bot/RSART-official-bot/add_data.py"
+(the "test_connection.py" here does not work - wrong API)
 
-they should both work and you should see 4 lines in VNC after running the script, adding lines for clients IDs
+they should both work and you should see 4 lines in VNC after running the script, also adding tabs for each clients IDs
+(should use one clientID per client code developed)

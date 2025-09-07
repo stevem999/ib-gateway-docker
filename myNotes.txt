@@ -5,3 +5,13 @@ from bot repo, Arthur-RSI-testing branch (not this repo!), run "test_minimal_con
 
 they should both work and you should see 4 lines in VNC after running the script, also adding tabs for each clients IDs
 (should use one clientID per client code developed)
+
+For ECR + ECS: 
+2. Create ECR repository first:
+  # Create ECR repo
+  # aws ecr create-repository --repository-name ib-gateway --region your-region
+
+  # Login and push
+  aws ecr get-login-password --region "us-east-1" | docker login --username AWS --password-stdin 1234567890.dkr.ecr.us-east-1.amazonaws.com
+
+  docker buildx build --platform linux/amd64 -t 1234567890.dkr.ecr.us-east-1.amazonaws.com/ib-gateway2:stable ./stable --push

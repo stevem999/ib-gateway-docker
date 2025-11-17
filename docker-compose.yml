@@ -1,16 +1,8 @@
 name: algo-trader
 services:
   ib-gateway:
-    # for cross building for Linux on ECS. Should remove that line when local on MAC
-    # platform: linux/amd64
-    # for cross building for Linux on ECS. Should remove that line when local on MAC
-    # platform: linux/amd64
-    # for cross building for Linux on ECS. Should remove that line when local on MAC
-    # platform: linux/amd64
-    # for cross building for Linux on ECS. Should remove that line when local on MAC
-    # platform: linux/amd64
-    # for cross building for Linux on ECS. Should remove that line when local on MAC
-    # platform: linux/amd64
+    # Enabling AMD64 for better compatibility (runs via Rosetta emulation on Mac)
+    platform: linux/amd64
     restart: always
     build:
       context: ./stable
@@ -19,7 +11,7 @@ services:
     image: ghcr.io/gnzsnz/ib-gateway:stable
     environment:
       TWS_USERID: ${TWS_USERID}
-      TWS_PASSWORD: ${TWS_PASSWORD}
+      # TWS_PASSWORD: ${TWS_PASSWORD}  # Using TWS_PASSWORD_FILE instead
       TWS_PASSWORD_FILE: ${TWS_PASSWORD_FILE}
       TRADING_MODE: ${TRADING_MODE:-paper}
       TWS_SETTINGS_PATH: ${TWS_SETTINGS_PATH:-}
@@ -55,7 +47,13 @@ services:
 #      - ${PWD}/config.ini:/home/ibgateway/ibc/config.ini
 #      - ${PWD}/tws_settings/:${TWS_SETTINGS_PATH:-/home/ibgateway/Jts}
 #      - ${PWD}/ssh/:/home/ibgateway/.ssh
+    secrets:
+      - tws_password
     ports:
       - "127.0.0.1:4001:4003"
       - "127.0.0.1:4002:4004"
       - "127.0.0.1:5900:5900"
+
+secrets:
+  tws_password:
+    file: tws_password.txt

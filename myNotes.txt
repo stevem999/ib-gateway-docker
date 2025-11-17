@@ -1,4 +1,4 @@
-docker-compose up &
+docker-compose up -d
 vnc://127.0.0.1:5900 from Finder on Mac (with CMD+K) + "myVncPassword" as myVncPassword
 Ensure venv is setup, that requirements are installed and then
 run "test_connection.py" to test that gateway is attainable

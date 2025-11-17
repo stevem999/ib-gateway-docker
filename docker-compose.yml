@@ -3,6 +3,14 @@ services:
   ib-gateway:
     # for cross building for Linux on ECS. Should remove that line when local on MAC
     # platform: linux/amd64
+    # for cross building for Linux on ECS. Should remove that line when local on MAC
+    # platform: linux/amd64
+    # for cross building for Linux on ECS. Should remove that line when local on MAC
+    # platform: linux/amd64
+    # for cross building for Linux on ECS. Should remove that line when local on MAC
+    # platform: linux/amd64
+    # for cross building for Linux on ECS. Should remove that line when local on MAC
+    # platform: linux/amd64
     restart: always
     build:
       context: ./stable
